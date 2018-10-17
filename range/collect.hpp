@@ -16,13 +16,15 @@ struct Collect
 template <typename SinglePassRange, template <typename...> typename Container>
 auto operator | (SinglePassRange && rng, Collect<Container>)
 {
-    using value_type = std::remove_const_t<std::remove_reference_t<std::remove_cv_t<decltype (*(std::begin (rng)))>>>;
+    using namespace std;
+    using value_type = remove_const_t<remove_reference_t<remove_cv_t<decltype (*(begin (rng)))>>>;
     Container<value_type> v;
 
     for (auto && it : rng)
     {
         v.push_back (std::move (it));
     }
+    //boost::push_back (v, rng);
 
     return v;
 }

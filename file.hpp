@@ -59,6 +59,7 @@ public:
 
     explicit operator bool () const noexcept { return fp_ != nullptr; }
 
+    [[nodiscard]]
     inline static std::optional<std::string> read_all (not_null<const char*> path) noexcept;
 
     inline static bool override (not_null<const char*> path, string_view data) noexcept;
@@ -72,6 +73,7 @@ private:
 };
 
 
+[[nodiscard]]
 std::optional<std::string> file::read_all (not_null<const char*> path) noexcept
 {
     auto fp = file::open (path, not_null("rb"));
@@ -127,6 +129,7 @@ bool file::override(not_null<const char *> path, string_view data) noexcept
     return true;
 }
 
+[[nodiscard]]
 bool file::append(not_null<const char *> path, string_view data) noexcept
 {
     auto fp = file::open (path, not_null("ab+"));
